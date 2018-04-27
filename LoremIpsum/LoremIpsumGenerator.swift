@@ -61,8 +61,8 @@ final class LoremIpsumGenerator : NSObject {
     ///
     /// - Returns: A lorem ipsum paragraph.
     func generateParagraph() -> String {
-        let wordCount = 3 + Int(arc4random_uniform(7))
-        return (0 ..< wordCount).map { _ in generateSentence() }.joined(separator: "")
+        let sentenceCount = 3 + Int(arc4random_uniform(7))
+        return (0 ..< sentenceCount).map { _ in generateSentence() }.joined(separator: "")
     }
     
     
