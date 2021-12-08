@@ -42,12 +42,12 @@ final class LoremIpsumGenerator : NSObject {
     ///
     /// - Returns: A lorem ipsum sentence.
     func generateSentence() -> String {
-        var sentence = Lexicon.default.sentenceTemplates.randomElement()
+        var sentence = Lexicon.default.sentenceTemplates.randomElement()!
      
         var range = sentence.range(of: Lexicon.templateWordToken)
         var isFirstWord = true
         while range != nil {
-            let word = Lexicon.default.words.randomElement()
+            let word = Lexicon.default.words.randomElement()!
             sentence.replaceSubrange(range!, with: isFirstWord ? word.localizedCapitalized : word)
             isFirstWord = false
             range = sentence.range(of: Lexicon.templateWordToken)
@@ -89,20 +89,5 @@ final class LoremIpsumGenerator : NSObject {
     @objc func generateParagraph(_ pasteboard: NSPasteboard, userData: String) throws {
         pasteboard.clearContents()
         pasteboard.setString(generateParagraph(), forType: .string)
-    }
-}
-
-
-// MARK: -
-
-private extension Collection {
-    /// Returns a random element in the collection.
-    /// - Warning: Fails with a precondition failure if the collection is empty.
-    /// - Returns: A random element in collection
-    func randomElement() -> Element {
-        precondition(!isEmpty, "Collection may not be empty")
-        let randomOffset = Int(arc4random_uniform(UInt32(count)))
-        let randomIndex = index(startIndex, offsetBy: randomOffset)
-        return self[randomIndex]
     }
 }
